@@ -428,12 +428,6 @@ var Selection = (function (_EventEmitter) {
             }
         }
     }, {
-        key: 'setSelected',
-        value: function setSelected() {
-            var _multiSelect = this._multiSelect;
-            var _dataStoreIndex = this._dataStoreIndex;
-        }
-    }, {
         key: 'isSelected',
         value: function isSelected(item) {
             return this._dataStoreIndex[item.id] !== undefined;
@@ -457,13 +451,22 @@ module.exports = exports['default'];
 
 var Selection = require('../dist/Selection');
 
-var tmp = new Selection();
-tmp.select({id:1, name:'name1'})
-console.log(tmp);
+var singleSelect = new Selection();
+singleSelect.on('change', function(selected, prevSelected){
+    console.log(selected);
+})
+singleSelect.select({id:1, name:'name1'})
 
 
-var tmp2 = new Selection({multiSelect:true});
-tmp2.select({id:1, name:'name1'})
-tmp2.select({id:2, name:'name2'})
-console.log(tmp2.getSelected());
+
+var multiSelect = new Selection({multiSelect:true});
+
+multiSelect.on('change', function(selected, prevSelected){
+    console.log(selected);
+})
+
+
+multiSelect.select({id:1, name:'name1'})
+multiSelect.select({id:2, name:'name2'})
+
 },{"../dist/Selection":2}]},{},[3]);

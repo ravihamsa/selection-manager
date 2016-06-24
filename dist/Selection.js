@@ -123,12 +123,6 @@ var Selection = (function (_EventEmitter) {
             }
         }
     }, {
-        key: 'setSelected',
-        value: function setSelected() {
-            var _multiSelect = this._multiSelect;
-            var _dataStoreIndex = this._dataStoreIndex;
-        }
-    }, {
         key: 'isSelected',
         value: function isSelected(item) {
             return this._dataStoreIndex[item.id] !== undefined;

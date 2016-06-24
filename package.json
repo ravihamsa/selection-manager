@@ -6,7 +6,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha --reporter spec",
     "build": "babel src --out-dir dist",
-    "browser": "babel src --out-dir dist && browserify scripts/usage.js -o browser/bundle.js"
+    "browser:build": "babel src --out-dir dist && browserify examples/selection.js -o browser/bundle.js"
   },
   "repository": {
     "type": "git",

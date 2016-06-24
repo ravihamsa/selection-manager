@@ -10,13 +10,22 @@ Single Selection and Multi Selection handler for JavaScript objects, each object
 var Selection = require('../dist/Selection');
 
 var singleSelect = new Selection();
+singleSelect.on('change', function(selected, prevSelected){
+    console.log(selected);
+})
 singleSelect.select({id:1, name:'name1'})
-console.log(singleSelect);
+
 
 
 var multiSelect = new Selection({multiSelect:true});
+
+multiSelect.on('change', function(selected, prevSelected){
+    console.log(selected);
+})
+
+
 multiSelect.select({id:1, name:'name1'})
 multiSelect.select({id:2, name:'name2'})
-console.log(multiSelect.getSelected());
+
 
 ```
