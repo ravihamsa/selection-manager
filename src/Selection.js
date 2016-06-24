@@ -12,7 +12,6 @@ class Selection extends EventEmitter{
         this._dataStoreIndex = {};
         this._deselectCallBacks = {};
         this._multiSelect = config.multiSelect || false;
-        this._emitter = new EventEmitter();
         this._selected = null;
     }
 
@@ -84,7 +83,7 @@ class Selection extends EventEmitter{
             return _multiSelect ? [] : null;
         }
     }
-    
+
     isSelected(item){
         return this._dataStoreIndex[item.id] !== undefined;
     }
