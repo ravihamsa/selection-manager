@@ -13,5 +13,5 @@ var _Selection = require('./Selection');
 
 var _Selection2 = _interopRequireDefault(_Selection);
 
-var Selection = _Selection2['default'];
-exports.Selection = Selection;
+exports['default'] = _Selection2['default'];
+module.exports = exports['default'];

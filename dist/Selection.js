@@ -35,7 +35,6 @@ var Selection = (function (_EventEmitter) {
         this._dataStoreIndex = {};
         this._deselectCallBacks = {};
         this._multiSelect = config.multiSelect || false;
-        this._emitter = new _events2['default']();
         this._selected = null;
     }
 
