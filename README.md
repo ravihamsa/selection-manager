@@ -1,13 +1,13 @@
 # selection-manager
 
-Single Selection and Multi Selection handler for JavaScript objects, each object is expected to have unique "id" attribute defined
+Single Selection and Multi Selection handler for JavaScript objects, each object is expected to have unique `id` attribute defined
  
 #Usage
 
 ```javascript
 
 
-var Selection = require('../dist/Selection');
+var Selection = require('selection-manager');
 
 var singleSelect = new Selection();
 singleSelect.on('change', function(selected, prevSelected){
