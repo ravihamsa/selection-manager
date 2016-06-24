@@ -21,6 +21,14 @@ describe('#singleselect', function() {
         expect(selection.getSelected()).to.equal(null)
     })
 
+    it('selecting returns null after clear', function(){
+        var selection = new Selection();
+        selection.select(dataItems[0]);
+        selection.clear();
+        expect(selection.getSelected()).to.equal(null)
+    })
+
+
     it('selecting multiple times store only latest selection', function(){
         var selection = new Selection();
         selection.select(dataItems[0]);
@@ -42,6 +50,13 @@ describe('#multiselect', function() {
 
     it('selecting returns empty array when none selected', function(){
         var selection = new Selection({multiSelect:true});
+        expect(selection.getSelected()).to.have.length(0);
+    })
+
+    it('selecting returns empty array after clear', function(){
+        var selection = new Selection({multiSelect:true});
+        selection.select(dataItems[0]);
+        selection.clear();
         expect(selection.getSelected()).to.have.length(0);
     })
 
