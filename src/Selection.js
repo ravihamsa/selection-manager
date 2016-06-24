@@ -84,11 +84,7 @@ class Selection extends EventEmitter{
             return _multiSelect ? [] : null;
         }
     }
-
-    setSelected(){
-        let {_multiSelect, _dataStoreIndex} =  this;
-    }
-
+    
     isSelected(item){
         return this._dataStoreIndex[item.id] !== undefined;
     }
