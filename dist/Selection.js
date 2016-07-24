@@ -127,6 +127,16 @@ var Selection = (function (_EventEmitter) {
             return this._dataStoreIndex[item.id] !== undefined;
         }
     }, {
+        key: 'on',
+        value: function on(event, callback) {
+            var _this = this;
+
+            _get(Object.getPrototypeOf(Selection.prototype), 'on', this).call(this, event, callback);
+            return function () {
+                _get(Object.getPrototypeOf(Selection.prototype), 'removeEventListener', _this).call(_this, event, callback);
+            };
+        }
+    }, {
         key: 'trigger',
         value: function trigger() {
             this.emit.apply(this, arguments);

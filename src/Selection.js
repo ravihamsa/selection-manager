@@ -88,6 +88,13 @@ class Selection extends EventEmitter{
         return this._dataStoreIndex[item.id] !== undefined;
     }
 
+    on(event, callback){
+        super.on(event, callback);
+        return function(){
+            super.removeEventListener(event, callback);
+        }
+    }
+
     trigger (){
         this.emit.apply(this, arguments)
     }
