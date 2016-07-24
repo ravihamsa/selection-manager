@@ -133,7 +133,7 @@ var Selection = (function (_EventEmitter) {
 
             _get(Object.getPrototypeOf(Selection.prototype), 'on', this).call(this, event, callback);
             return function () {
-                _get(Object.getPrototypeOf(Selection.prototype), 'removeEventListener', _this).call(_this, event, callback);
+                _get(Object.getPrototypeOf(Selection.prototype), 'removeListener', _this).call(_this, event, callback);
             };
         }
     }, {

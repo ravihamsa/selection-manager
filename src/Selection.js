@@ -91,7 +91,7 @@ class Selection extends EventEmitter{
     on(event, callback){
         super.on(event, callback);
         return function(){
-            super.removeEventListener(event, callback);
+            super.removeListener(event, callback);
         }
     }
 
