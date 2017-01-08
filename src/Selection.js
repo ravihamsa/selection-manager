@@ -5,7 +5,7 @@
 import EventEmitter from "events";
 
 
-class Selection extends EventEmitter{
+export default class Selection extends EventEmitter{
     constructor(config){
         super(...arguments);
         config = config || {};
@@ -88,9 +88,13 @@ class Selection extends EventEmitter{
         return this._dataStoreIndex[item.id] !== undefined;
     }
 
+    isMultiSelect(){
+        return this._multiSelect;
+    }
+
     on(event, callback){
         super.on(event, callback);
-        return function(){
+        return ()=>{
             super.removeListener(event, callback);
         }
     }
@@ -100,4 +104,3 @@ class Selection extends EventEmitter{
     }
 }
 
-export default Selection;

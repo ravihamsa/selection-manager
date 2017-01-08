@@ -1,47 +1,51 @@
-/**
- * Created by ravi.hamsa on 6/23/16.
- */
-
 'use strict';
 
-Object.defineProperty(exports, '__esModule', {
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _events = require("events");
+var _events = require('events');
 
 var _events2 = _interopRequireDefault(_events);
 
-var Selection = (function (_EventEmitter) {
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                * Created by ravi.hamsa on 6/23/16.
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                */
+
+var Selection = function (_EventEmitter) {
     _inherits(Selection, _EventEmitter);
 
     function Selection(config) {
         _classCallCheck(this, Selection);
 
-        _get(Object.getPrototypeOf(Selection.prototype), 'constructor', this).apply(this, arguments);
+        var _this = _possibleConstructorReturn(this, (Selection.__proto__ || Object.getPrototypeOf(Selection)).apply(this, arguments));
+
         config = config || {};
-        this._dataStoreIndex = {};
-        this._deselectCallBacks = {};
-        this._multiSelect = config.multiSelect || false;
-        this._selected = null;
+        _this._dataStoreIndex = {};
+        _this._deselectCallBacks = {};
+        _this._multiSelect = config.multiSelect || false;
+        _this._selected = null;
+        return _this;
     }
 
     _createClass(Selection, [{
         key: 'validateItem',
         value: function validateItem(item) {
-            if (typeof item !== 'object' || item.id === undefined) {
+            if ((typeof item === 'undefined' ? 'undefined' : _typeof(item)) !== 'object' || item.id === undefined) {
                 throw new Error('item must have id be selected');
             } else {
                 return true;
@@ -60,8 +64,9 @@ var Selection = (function (_EventEmitter) {
     }, {
         key: 'select',
         value: function select(selectedItem) {
-            var _multiSelect = this._multiSelect;
-            var _dataStoreIndex = this._dataStoreIndex;
+            var _multiSelect = this._multiSelect,
+                _dataStoreIndex = this._dataStoreIndex;
+
 
             if (this.validateItem(selectedItem) && !this.isSelected(selectedItem)) {
                 if (_multiSelect) {
@@ -78,8 +83,8 @@ var Selection = (function (_EventEmitter) {
     }, {
         key: 'deselect',
         value: function deselect(deselectedItem) {
-            var _multiSelect = this._multiSelect;
-            var _dataStoreIndex = this._dataStoreIndex;
+            var _multiSelect = this._multiSelect,
+                _dataStoreIndex = this._dataStoreIndex;
 
             if (this.validateItem(deselectedItem) && this.isSelected(deselectedItem)) {
                 delete _dataStoreIndex[deselectedItem.id];
@@ -89,8 +94,8 @@ var Selection = (function (_EventEmitter) {
     }, {
         key: 'toggle',
         value: function toggle(toToggleItem) {
-            var _multiSelect = this._multiSelect;
-            var _dataStoreIndex = this._dataStoreIndex;
+            var _multiSelect = this._multiSelect,
+                _dataStoreIndex = this._dataStoreIndex;
 
             if (this.validateItem(toToggleItem)) {
                 if (_dataStoreIndex[toToggleItem.id]) {
@@ -109,8 +114,8 @@ var Selection = (function (_EventEmitter) {
     }, {
         key: 'getSelected',
         value: function getSelected() {
-            var _multiSelect = this._multiSelect;
-            var _dataStoreIndex = this._dataStoreIndex;
+            var _multiSelect = this._multiSelect,
+                _dataStoreIndex = this._dataStoreIndex;
 
             var selected = Object.keys(_dataStoreIndex).map(function (keyName) {
                 return _dataStoreIndex[keyName];
@@ -127,13 +132,18 @@ var Selection = (function (_EventEmitter) {
             return this._dataStoreIndex[item.id] !== undefined;
         }
     }, {
+        key: 'isMultiSelect',
+        value: function isMultiSelect() {
+            return this._multiSelect;
+        }
+    }, {
         key: 'on',
         value: function on(event, callback) {
-            var _this = this;
+            var _this2 = this;
 
-            _get(Object.getPrototypeOf(Selection.prototype), 'on', this).call(this, event, callback);
+            _get(Selection.prototype.__proto__ || Object.getPrototypeOf(Selection.prototype), 'on', this).call(this, event, callback);
             return function () {
-                _get(Object.getPrototypeOf(Selection.prototype), 'removeListener', _this).call(_this, event, callback);
+                _get(Selection.prototype.__proto__ || Object.getPrototypeOf(Selection.prototype), 'removeListener', _this2).call(_this2, event, callback);
             };
         }
     }, {
@@ -144,7 +154,6 @@ var Selection = (function (_EventEmitter) {
     }]);
 
     return Selection;
-})(_events2['default']);
+}(_events2.default);
 
-exports['default'] = Selection;
-module.exports = exports['default'];
+exports.default = Selection;

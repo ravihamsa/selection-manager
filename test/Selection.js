@@ -3,7 +3,7 @@
  */
 
 var chai = require('chai'),  should = chai.should(), expect = chai.expect ,
-    Selection = require('../dist/Selection');
+    Selection = require('../dist/Selection').default;
 
 
 var dataItems = [{id:1, name:'name'}, {id:2, name:'two'}, {id:3, name:'three'}];
@@ -35,6 +35,11 @@ describe('#singleselect', function() {
         selection.select(dataItems[1]);
         selection.getSelected().should.equal(dataItems[1])
     })
+
+    it('return whether selection is multiSelect', function(){
+        var selection = new Selection();
+        expect(selection.isMultiSelect()).to.be.false;
+    })
 })
 
 
@@ -65,5 +70,10 @@ describe('#multiselect', function() {
         selection.select(dataItems[0]);
         selection.select(dataItems[1]);
         expect(selection.getSelected()).to.have.length(2)
+    })
+
+    it('return whether selection is multiSelect', function(){
+        var selection = new Selection({multiSelect:true});
+        expect(selection.isMultiSelect()).to.be.true
     })
 })
