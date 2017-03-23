@@ -58,8 +58,10 @@ var Selection = function (_EventEmitter) {
 
             var prevSelection = this._selected;
             var curSelection = this.getSelected();
-            this.trigger('change', curSelection, prevSelection);
-            this._selected = curSelection;
+            if (curSelection !== prevSelection) {
+                this.trigger('change', curSelection, prevSelection);
+                this._selected = curSelection;
+            }
         }
     }, {
         key: 'select',
@@ -108,8 +110,15 @@ var Selection = function (_EventEmitter) {
     }, {
         key: 'clear',
         value: function clear() {
-            this._dataStoreIndex = {};
-            this.triggerChange();
+            if (!this.isEmpty()) {
+                this._dataStoreIndex = {};
+                this.triggerChange();
+            }
+        }
+    }, {
+        key: 'isEmpty',
+        value: function isEmpty() {
+            return Object.keys(this._dataStoreIndex).length === 0;
         }
     }, {
         key: 'getSelected',

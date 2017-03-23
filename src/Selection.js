@@ -4,7 +4,6 @@
 
 import EventEmitter from "events";
 
-
 export default class Selection extends EventEmitter{
     constructor(config){
         super(...arguments);
@@ -28,8 +27,10 @@ export default class Selection extends EventEmitter{
         let {_dataStoreIndex} =  this;
         let prevSelection = this._selected;
         let curSelection = this.getSelected();
-        this.trigger('change', curSelection, prevSelection);
-        this._selected = curSelection;
+        if(curSelection !== prevSelection){
+            this.trigger('change', curSelection, prevSelection);
+            this._selected = curSelection;
+        }
     }
 
     select(selectedItem){
@@ -69,8 +70,14 @@ export default class Selection extends EventEmitter{
     }
 
     clear(){
-        this._dataStoreIndex = {};
-        this.triggerChange();
+        if(!this.isEmpty()){
+            this._dataStoreIndex = {};
+            this.triggerChange();
+        }
+    }
+
+    isEmpty(){
+        return Object.keys(this._dataStoreIndex).length === 0;
     }
 
 
