@@ -11,12 +11,14 @@ export default class Selection extends EventEmitter{
         this._dataStoreIndex = {};
         this._deselectCallBacks = {};
         this._multiSelect = config.multiSelect || false;
+        this._idAttribute = config.idAttribute || 'id';
         this._selected = null;
     }
 
     validateItem(item){
-        if(typeof item !== 'object' || item.id === undefined){
-            throw new Error('item must have id be selected')
+        const {_idAttribute} = this;
+        if(typeof item !== 'object' || item[_idAttribute] === undefined){
+            throw new Error(`item must have ${_idAttribute} be selected`)
         }else{
             return true
         }
@@ -35,15 +37,15 @@ export default class Selection extends EventEmitter{
 
     select(selectedItem){
 
-        let {_multiSelect, _dataStoreIndex} =  this;
+        let {_multiSelect, _dataStoreIndex, _idAttribute} =  this;
 
         if(this.validateItem(selectedItem) && !this.isSelected(selectedItem)){
             if (_multiSelect) {
-                _dataStoreIndex[selectedItem.id] = selectedItem;
+                _dataStoreIndex[selectedItem[_idAttribute]] = selectedItem;
             } else {
                 _dataStoreIndex = {};
-                _dataStoreIndex[selectedItem.id] = selectedItem;
-                this._dataStoreIndex = {[selectedItem.id]:selectedItem}
+                _dataStoreIndex[selectedItem[_idAttribute]] = selectedItem;
+                this._dataStoreIndex = {[selectedItem[_idAttribute]]:selectedItem}
             }
 
             this.triggerChange();
@@ -51,17 +53,17 @@ export default class Selection extends EventEmitter{
     }
 
     deselect(deselectedItem){
-        let {_multiSelect, _dataStoreIndex} =  this;
+        let {_dataStoreIndex, _idAttribute} =  this;
         if(this.validateItem(deselectedItem) && this.isSelected(deselectedItem)){
-            delete _dataStoreIndex[deselectedItem.id];
+            delete _dataStoreIndex[deselectedItem[_idAttribute]];
             this.triggerChange();
         }
     }
 
     toggle(toToggleItem){
-        let {_multiSelect, _dataStoreIndex} =  this;
+        let {_dataStoreIndex, _idAttribute} =  this;
         if(this.validateItem(toToggleItem)){
-            if(_dataStoreIndex[toToggleItem.id]){
+            if(_dataStoreIndex[toToggleItem[_idAttribute]]){
                 this.deselect(toToggleItem)
             }else{
                 this.select(toToggleItem)
@@ -92,7 +94,8 @@ export default class Selection extends EventEmitter{
     }
 
     isSelected(item){
-        return this._dataStoreIndex[item.id] !== undefined;
+        const {_idAttribute} = this;
+        return this._dataStoreIndex[item[_idAttribute]] !== undefined;
     }
 
     isMultiSelect(){

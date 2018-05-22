@@ -38,6 +38,7 @@ var Selection = function (_EventEmitter) {
         _this._dataStoreIndex = {};
         _this._deselectCallBacks = {};
         _this._multiSelect = config.multiSelect || false;
+        _this._idAttribute = config.idAttribute || 'id';
         _this._selected = null;
         return _this;
     }
@@ -45,8 +46,10 @@ var Selection = function (_EventEmitter) {
     _createClass(Selection, [{
         key: 'validateItem',
         value: function validateItem(item) {
-            if ((typeof item === 'undefined' ? 'undefined' : _typeof(item)) !== 'object' || item.id === undefined) {
-                throw new Error('item must have id be selected');
+            var _idAttribute = this._idAttribute;
+
+            if ((typeof item === 'undefined' ? 'undefined' : _typeof(item)) !== 'object' || item[_idAttribute] === undefined) {
+                throw new Error('item must have ' + _idAttribute + ' be selected');
             } else {
                 return true;
             }
@@ -67,16 +70,17 @@ var Selection = function (_EventEmitter) {
         key: 'select',
         value: function select(selectedItem) {
             var _multiSelect = this._multiSelect,
-                _dataStoreIndex = this._dataStoreIndex;
+                _dataStoreIndex = this._dataStoreIndex,
+                _idAttribute = this._idAttribute;
 
 
             if (this.validateItem(selectedItem) && !this.isSelected(selectedItem)) {
                 if (_multiSelect) {
-                    _dataStoreIndex[selectedItem.id] = selectedItem;
+                    _dataStoreIndex[selectedItem[_idAttribute]] = selectedItem;
                 } else {
                     _dataStoreIndex = {};
-                    _dataStoreIndex[selectedItem.id] = selectedItem;
-                    this._dataStoreIndex = _defineProperty({}, selectedItem.id, selectedItem);
+                    _dataStoreIndex[selectedItem[_idAttribute]] = selectedItem;
+                    this._dataStoreIndex = _defineProperty({}, selectedItem[_idAttribute], selectedItem);
                 }
 
                 this.triggerChange();
@@ -85,22 +89,22 @@ var Selection = function (_EventEmitter) {
     }, {
         key: 'deselect',
         value: function deselect(deselectedItem) {
-            var _multiSelect = this._multiSelect,
-                _dataStoreIndex = this._dataStoreIndex;
+            var _dataStoreIndex = this._dataStoreIndex,
+                _idAttribute = this._idAttribute;
 
             if (this.validateItem(deselectedItem) && this.isSelected(deselectedItem)) {
-                delete _dataStoreIndex[deselectedItem.id];
+                delete _dataStoreIndex[deselectedItem[_idAttribute]];
                 this.triggerChange();
             }
         }
     }, {
         key: 'toggle',
         value: function toggle(toToggleItem) {
-            var _multiSelect = this._multiSelect,
-                _dataStoreIndex = this._dataStoreIndex;
+            var _dataStoreIndex = this._dataStoreIndex,
+                _idAttribute = this._idAttribute;
 
             if (this.validateItem(toToggleItem)) {
-                if (_dataStoreIndex[toToggleItem.id]) {
+                if (_dataStoreIndex[toToggleItem[_idAttribute]]) {
                     this.deselect(toToggleItem);
                 } else {
                     this.select(toToggleItem);
@@ -138,7 +142,9 @@ var Selection = function (_EventEmitter) {
     }, {
         key: 'isSelected',
         value: function isSelected(item) {
-            return this._dataStoreIndex[item.id] !== undefined;
+            var _idAttribute = this._idAttribute;
+
+            return this._dataStoreIndex[item[_idAttribute]] !== undefined;
         }
     }, {
         key: 'isMultiSelect',
